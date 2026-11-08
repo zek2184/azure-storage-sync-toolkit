@@ -39,6 +39,7 @@ if ($syntaxErrors.Count -gt 0) {
 Write-Output "PASS: parsed $($sourceFiles.Count) PowerShell files without syntax errors."
 
 & (Join-Path $PSScriptRoot 'Test-Foundation.ps1')
+& (Join-Path $PSScriptRoot 'Test-Inventory.ps1')
 
 $analyzer = Get-Module -ListAvailable -Name PSScriptAnalyzer |
     Sort-Object Version -Descending |

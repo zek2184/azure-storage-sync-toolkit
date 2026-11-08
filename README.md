@@ -2,7 +2,7 @@
 
 A clean-room PowerShell toolkit for safely inventorying file sources, previewing incremental changes, applying approved non-destructive copies, and producing auditable reports.
 
-> **Status:** foundation milestone. Inventory, comparison, transfer, and dashboard features are not implemented yet.
+> **Status:** inventory and comparison milestone. Transfer and dashboard features are not implemented yet.
 
 ## Version 1 target
 
@@ -31,6 +31,19 @@ $config = @{
 }
 
 Test-AzStorageSyncConfiguration -Configuration $config
+
+$baseline = New-AzStorageSyncInventory `
+    -SourcePath 'C:\SyntheticDemo\Source' `
+    -InventoryPath 'C:\SyntheticDemo\Working\baseline'
+
+$current = New-AzStorageSyncInventory `
+    -SourcePath 'C:\SyntheticDemo\Source' `
+    -InventoryPath 'C:\SyntheticDemo\Working\current'
+
+Compare-AzStorageSyncInventory `
+    -PreviousInventoryPath $baseline.InventoryPath `
+    -CurrentInventoryPath $current.InventoryPath `
+    -OutputPath 'C:\SyntheticDemo\Working\delta'
 ```
 
 Run the dependency-free foundation verification:
@@ -48,6 +61,7 @@ Run the complete quality gate after installing Pester 5 and PSScriptAnalyzer:
 ## Documentation
 
 - [Requirements and acceptance criteria](docs/REQUIREMENTS.md)
+- [Performance verification](docs/PERFORMANCE.md)
 - [Architecture decision: filesystem-first release](docs/decisions/0001-filesystem-first.md)
 - [Security policy](SECURITY.md)
 - [Contributing](CONTRIBUTING.md)
