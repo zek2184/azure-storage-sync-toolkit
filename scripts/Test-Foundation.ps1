@@ -8,13 +8,13 @@ $repositoryRoot = Split-Path $PSScriptRoot -Parent
 $moduleManifest = Join-Path $repositoryRoot 'src/AzureStorageSyncToolkit/AzureStorageSyncToolkit.psd1'
 
 $manifest = Test-ModuleManifest -Path $moduleManifest -ErrorAction Stop
-if ([string]$manifest.Version -ne '0.2.0') {
+if ([string]$manifest.Version -ne '0.3.0') {
     throw "Unexpected module version: $($manifest.Version)"
 }
 
 Import-Module $moduleManifest -Force -ErrorAction Stop
 
-if ((Get-AzStorageSyncToolkitVersion) -ne '0.2.0') {
+if ((Get-AzStorageSyncToolkitVersion) -ne '0.3.0') {
     throw 'The exported toolkit version is incorrect.'
 }
 

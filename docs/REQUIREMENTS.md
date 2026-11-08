@@ -12,6 +12,8 @@ Provide a safe, reproducible way to inventory a file source, preview incremental
 - Reject delete, mirror, move, rename, purge, and ACL-copy behavior.
 - Preserve the last successful baseline after failure or cancellation.
 - Generate redacted JSON, CSV, HTML, and structured status output.
+- Bind each preview plan to its delta, current inventory, normalized policy, and generated artifacts with SHA-256 fingerprints.
+- Keep blocked, review, and missing-candidate items non-transferable until a later explicit approval design authorizes them.
 - Provide deterministic synthetic baseline, delta, failure, recovery, and no-op scenarios.
 - Maintain Windows PowerShell 5.1 compatibility for the filesystem provider.
 
@@ -27,6 +29,8 @@ Provide a safe, reproducible way to inventory a file source, preview incremental
 8. Public artifacts contain only generated synthetic data and pass privacy and secret review.
 9. Documentation covers quick start, architecture, limitations, security, testing, and troubleshooting.
 10. Every portfolio screenshot is reproducible from a documented synthetic run.
+11. Editing plan items, preview CSV, policy, delta identity, or current-inventory identity invalidates the preview plan.
+12. Preview CSV output neutralizes spreadsheet formula characters in file-derived fields.
 
 ## Publication gate
 

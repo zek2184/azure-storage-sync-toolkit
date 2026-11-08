@@ -3,7 +3,7 @@ Import-Module $modulePath -Force
 
 Describe 'AzureStorageSyncToolkit foundation' {
     It 'exports the expected version' {
-        Get-AzStorageSyncToolkitVersion | Should -Be '0.2.0'
+        Get-AzStorageSyncToolkitVersion | Should -Be '0.3.0'
     }
 
     It 'accepts a safe foundation configuration' {
