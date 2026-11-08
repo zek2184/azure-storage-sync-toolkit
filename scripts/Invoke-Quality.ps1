@@ -41,6 +41,7 @@ Write-Output "PASS: parsed $($sourceFiles.Count) PowerShell files without syntax
 & (Join-Path $PSScriptRoot 'Test-Foundation.ps1')
 & (Join-Path $PSScriptRoot 'Test-Inventory.ps1')
 & (Join-Path $PSScriptRoot 'Test-Preview.ps1')
+& (Join-Path $PSScriptRoot 'Test-Apply.ps1')
 
 $analyzer = Get-Module -ListAvailable -Name PSScriptAnalyzer |
     Sort-Object Version -Descending |

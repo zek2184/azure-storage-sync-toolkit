@@ -1,7 +1,7 @@
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Stop'
 
-$script:ToolkitVersion = '0.3.0'
+$script:ToolkitVersion = '0.4.0'
 $script:RequiredConfigurationKeys = @(
     'SourcePath',
     'DestinationPath',
@@ -31,6 +31,7 @@ Export-ModuleMember -Function @(
     'New-AzStorageSyncInventory',
     'Compare-AzStorageSyncInventory',
     'New-AzStorageSyncPreviewPlan',
-    'Test-AzStorageSyncPreviewPlan'
+    'Test-AzStorageSyncPreviewPlan',
+    'Invoke-AzStorageSyncPlan'
 )
 

@@ -31,6 +31,9 @@ Provide a safe, reproducible way to inventory a file source, preview incremental
 10. Every portfolio screenshot is reproducible from a documented synthetic run.
 11. Editing plan items, preview CSV, policy, delta identity, or current-inventory identity invalidates the preview plan.
 12. Preview CSV output neutralizes spreadsheet formula characters in file-derived fields.
+13. Apply requires the exact externally approved plan identifier and rejects changed source metadata before copying.
+14. Failed apply operations retain the previous successful baseline; retry safely reconciles already-current files.
+15. Successful apply atomically promotes the current inventory and an unchanged rerun produces no candidates.
 
 ## Publication gate
 

@@ -1,6 +1,6 @@
 @{
     RootModule = 'AzureStorageSyncToolkit.psm1'
-    ModuleVersion = '0.3.0'
+    ModuleVersion = '0.4.0'
     GUID = '76dbf1c1-7c7a-4b86-9c1c-2f1297d3fc35'
     Author = 'Azure Storage Sync Toolkit contributors'
     CompanyName = 'Community'
@@ -13,7 +13,8 @@
         'New-AzStorageSyncInventory',
         'Compare-AzStorageSyncInventory',
         'New-AzStorageSyncPreviewPlan',
-        'Test-AzStorageSyncPreviewPlan'
+        'Test-AzStorageSyncPreviewPlan',
+        'Invoke-AzStorageSyncPlan'
     )
     CmdletsToExport = @()
     VariablesToExport = @()
@@ -23,7 +24,7 @@
             Tags = @('Azure', 'AzureFiles', 'Migration', 'PowerShell', 'Synchronization')
             LicenseUri = 'https://opensource.org/license/mit'
             ProjectUri = 'https://github.com/OWNER/azure-storage-sync-toolkit'
-            ReleaseNotes = 'Adds policy-evaluated, fingerprinted preview plans. Transfer features are not implemented.'
+            ReleaseNotes = 'Adds approved non-destructive apply, failure recovery, and atomic baseline promotion.'
         }
     }
 }

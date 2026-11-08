@@ -17,5 +17,7 @@ All notable changes will be documented in this file.
 - Normalized safety policy for blocked, review, and ready candidates
 - SHA-256-bound immutable preview plans with tamper and stale-evidence detection
 - Redacted TSV/CSV preview artifacts and evidence-only missing candidates
+- Approved non-destructive apply with complete preflight and per-file revalidation
+- Retry-aware results, deterministic failure testing, and atomic successful-baseline promotion
 - Security, contribution, requirements, and architecture-decision documentation
 

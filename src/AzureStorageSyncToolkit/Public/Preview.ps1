@@ -41,8 +41,8 @@ function New-AzStorageSyncPreviewPlan {
     $csvPath = Join-Path $outputFullPath 'preview.csv'
     $itemsWriter = Get-ToolkitUtf8Writer -Path $itemsPath
     $csvWriter = Get-ToolkitUtf8Writer -Path $csvPath
-    $itemsWriter.WriteLine("PathToken`tChangeType`tLength`tDecision`tEligible`tIssueCodes")
-    $csvWriter.WriteLine('"RelativePath","ChangeType","Length","Decision","Eligible","IssueCodes"')
+    $itemsWriter.WriteLine("PathToken`tChangeType`tLength`tLastWriteTimeUtcTicks`tDecision`tEligible`tIssueCodes")
+    $csvWriter.WriteLine('"RelativePath","ChangeType","Length","LastWriteTimeUtcTicks","Decision","Eligible","IssueCodes"')
 
     [int64]$readyCount = 0
     [int64]$reviewCount = 0
@@ -51,8 +51,8 @@ function New-AzStorageSyncPreviewPlan {
 
     try {
         foreach ($definition in @(
-            @{ Path = (Join-Path $DeltaPath 'new.tsv'); ChangeType = 'New'; LengthIndex = 1 },
-            @{ Path = (Join-Path $DeltaPath 'modified.tsv'); ChangeType = 'Modified'; LengthIndex = 2 }
+            @{ Path = (Join-Path $DeltaPath 'new.tsv'); ChangeType = 'New'; LengthIndex = 1; TicksIndex = 2 },
+            @{ Path = (Join-Path $DeltaPath 'modified.tsv'); ChangeType = 'Modified'; LengthIndex = 2; TicksIndex = 4 }
         )) {
             $reader = [IO.File]::OpenText([string]$definition.Path)
             try {
@@ -63,19 +63,21 @@ function New-AzStorageSyncPreviewPlan {
                     $pathToken = $parts[0]
                     $relativePath = ConvertFrom-InventoryPathToken -Token $pathToken
                     $length = [int64]$parts[[int]$definition.LengthIndex]
+                    $lastWriteTimeUtcTicks = [int64]$parts[[int]$definition.TicksIndex]
                     $decision = Get-PreviewPolicyDecision -RelativePath $relativePath -Length $length -Policy $normalizedPolicy
                     switch ($decision.Decision) {
                         'Ready' { $readyCount++ }
                         'Review' { $reviewCount++ }
                         'Blocked' { $blockedCount++ }
                     }
-                    $itemsWriter.WriteLine(("{0}`t{1}`t{2}`t{3}`t{4}`t{5}" -f
-                        $pathToken, $definition.ChangeType, $length, $decision.Decision,
+                    $itemsWriter.WriteLine(("{0}`t{1}`t{2}`t{3}`t{4}`t{5}`t{6}" -f
+                        $pathToken, $definition.ChangeType, $length, $lastWriteTimeUtcTicks, $decision.Decision,
                         ([string]$decision.Eligible).ToLowerInvariant(), $decision.IssueCodes))
                     $csvWriter.WriteLine((@(
                         ConvertTo-ToolkitCsvField $relativePath
                         ConvertTo-ToolkitCsvField ([string]$definition.ChangeType)
                         ConvertTo-ToolkitCsvField ([string]$length)
+                        ConvertTo-ToolkitCsvField ([string]$lastWriteTimeUtcTicks)
                         ConvertTo-ToolkitCsvField ([string]$decision.Decision)
                         ConvertTo-ToolkitCsvField (([string]$decision.Eligible).ToLowerInvariant())
                         ConvertTo-ToolkitCsvField ([string]$decision.IssueCodes)
@@ -94,11 +96,13 @@ function New-AzStorageSyncPreviewPlan {
                 $pathToken = $parts[0]
                 $relativePath = ConvertFrom-InventoryPathToken -Token $pathToken
                 $length = [int64]$parts[1]
-                $itemsWriter.WriteLine(("{0}`tMissingCandidate`t{1}`tEvidenceOnly`tfalse`tNO_DELETE_ACTION" -f $pathToken, $length))
+                $lastWriteTimeUtcTicks = [int64]$parts[2]
+                $itemsWriter.WriteLine(("{0}`tMissingCandidate`t{1}`t{2}`tEvidenceOnly`tfalse`tNO_DELETE_ACTION" -f $pathToken, $length, $lastWriteTimeUtcTicks))
                 $csvWriter.WriteLine((@(
                     ConvertTo-ToolkitCsvField $relativePath
                     ConvertTo-ToolkitCsvField 'MissingCandidate'
                     ConvertTo-ToolkitCsvField ([string]$length)
+                    ConvertTo-ToolkitCsvField ([string]$lastWriteTimeUtcTicks)
                     ConvertTo-ToolkitCsvField 'EvidenceOnly'
                     ConvertTo-ToolkitCsvField 'false'
                     ConvertTo-ToolkitCsvField 'NO_DELETE_ACTION'

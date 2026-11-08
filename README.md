@@ -2,7 +2,7 @@
 
 A clean-room PowerShell toolkit for safely inventorying file sources, previewing incremental changes, applying approved non-destructive copies, and producing auditable reports.
 
-> **Status:** immutable preview-plan milestone. Transfer and dashboard features are not implemented yet.
+> **Status:** non-destructive filesystem apply milestone. Dashboard and synthetic-demo packaging are not implemented yet.
 
 ## Version 1 target
 
@@ -55,6 +55,15 @@ Test-AzStorageSyncPreviewPlan `
     -PlanPath $preview.OutputPath `
     -DeltaPath 'C:\SyntheticDemo\Working\delta' `
     -CurrentInventoryPath $current.InventoryPath
+
+Invoke-AzStorageSyncPlan `
+    -PlanPath $preview.OutputPath `
+    -DeltaPath 'C:\SyntheticDemo\Working\delta' `
+    -CurrentInventoryPath $current.InventoryPath `
+    -SourcePath 'C:\SyntheticDemo\Source' `
+    -DestinationPath 'C:\SyntheticDemo\Destination' `
+    -StatePath 'C:\SyntheticDemo\State' `
+    -ApprovedPlanId $preview.PlanId
 ```
 
 Run the dependency-free foundation verification:
