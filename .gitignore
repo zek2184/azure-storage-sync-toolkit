@@ -1,0 +1,23 @@
+# Local configuration and credentials
+*.local.psd1
+.env
+.env.*
+!.env.example
+
+# Generated runtime state and artifacts
+artifacts/
+reports/
+state/
+logs/
+TestResults/
+*.trx
+testResults.xml
+.tools/
+
+# PowerShell and editor artifacts
+*.clixml
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
