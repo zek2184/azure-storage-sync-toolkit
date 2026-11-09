@@ -23,7 +23,7 @@
         PSData = @{
             Tags = @('Azure', 'AzureFiles', 'Migration', 'PowerShell', 'Synchronization')
             LicenseUri = 'https://opensource.org/license/mit'
-            ProjectUri = 'https://github.com/OWNER/azure-storage-sync-toolkit'
+            ProjectUri = 'https://github.com/zek2184/azure-storage-sync-toolkit'
             ReleaseNotes = 'Adds approved non-destructive apply, failure recovery, and atomic baseline promotion.'
         }
     }
