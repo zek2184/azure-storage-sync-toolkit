@@ -72,10 +72,10 @@ Run the dependency-free foundation verification:
 ./scripts/Test-Foundation.ps1
 ```
 
-Run the complete quality gate after installing Pester 5 and PSScriptAnalyzer:
+Run the complete quality gate in PowerShell 7 after installing Pester 5 and PSScriptAnalyzer. Windows PowerShell 5.1 includes Pester 3.4 by default, which is not compatible with this test suite.
 
 ```powershell
-./scripts/Invoke-Quality.ps1 -RequirePester -RequireAnalyzer
+pwsh -NoProfile -File ./scripts/Invoke-Quality.ps1 -RequirePester -RequireAnalyzer
 ```
 
 ## Documentation

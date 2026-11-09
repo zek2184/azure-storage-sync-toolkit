@@ -10,8 +10,10 @@
 
 ```powershell
 ./scripts/Test-Foundation.ps1
-./scripts/Invoke-Quality.ps1 -RequirePester -RequireAnalyzer
+pwsh -NoProfile -File ./scripts/Invoke-Quality.ps1 -RequirePester -RequireAnalyzer
 ```
+
+The full quality gate requires PowerShell 7, Pester 5 or later, and PSScriptAnalyzer. The toolkit's version 1 filesystem provider remains compatible with Windows PowerShell 5.1.
 
 Changes should include tests for normal behavior, validation failures, and recovery behavior where applicable. Documentation must be updated in the same change when public behavior changes.
 
